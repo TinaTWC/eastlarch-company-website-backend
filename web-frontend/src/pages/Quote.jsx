@@ -50,6 +50,7 @@ export default function Quote() {
                     環保節能，利用重力自然排水，無需電力。
                   </span>
                 </div>
+              </label>
             </div>
           </div>
 
