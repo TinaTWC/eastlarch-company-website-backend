@@ -59,8 +59,10 @@ API 文件：http://localhost:8000/docs
 | SMTP_EMAIL | Gmail 帳號（建議用 qwqwqw4564@gmail.com） |
 | SMTP_PASSWORD | Gmail 應用程式密碼（需啟用兩步驟驗證後於 [這裡](https://myaccount.google.com/apppasswords) 產生） |
 
-- **本地開發**：複製 `.env.example` 為 `.env` 並填入。
-- **Railway**：在專案設定 → Variables 新增 `SMTP_EMAIL`、`SMTP_PASSWORD`。
+- **本地開發**：複製 `.env.example` 為 `.env` 並填入。`.env` 僅用於本機，**不會**上傳到 Git（已列在 .gitignore）。
+- **Railway**：**不使用 .env 檔**，改在 Railway 後端服務 → **Variables** 頁籤新增：
+  - `SMTP_EMAIL` = 你的 Gmail（如 qwqwqw4564@gmail.com）
+  - `SMTP_PASSWORD` = Gmail 應用程式密碼（16 碼）
 
 ---
 
@@ -150,9 +152,17 @@ pydantic[email]>=2.0.0
 2. 新增專案 → Deploy from GitHub（或本機上傳）
 3. 選擇此專案根目錄
 4. Railway 會偵測 Dockerfile 並建置
-5. 部署完成後會取得公開 URL（如 `https://xxx.railway.app`）
-6. 在前端專案設定 `VITE_API_URL=https://xxx.railway.app` 並重新 build
+5. **設定環境變數**：點選後端服務 → **Variables** → 新增 `SMTP_EMAIL`、`SMTP_PASSWORD`（值與本地 .env 相同，但 Railway 不會讀取 .env 檔）
+6. 部署完成後會取得公開 URL（如 `https://xxx.railway.app`）
+7. 在前端專案設定 `VITE_API_URL` 為後端網址，並重新 build
 
-### 4. 僅部署後端
+### 4. .env 與 Railway Variables 的差別
+
+| 環境 | 如何設定 | 說明 |
+|------|----------|------|
+| 本地開發 | 使用專案根目錄的 `.env` | `python-dotenv` 會載入，`os.getenv()` 可讀取 |
+| Railway | 使用 Railway 的 **Variables** | .env 不會被打包進 Docker，必須在 Railway 控制台手動新增 |
+
+### 5. 僅部署後端
 
 `.dockerignore` 已排除 `web-frontend/`，Docker 只會複製後端檔案。若專案包含前端，請在 Railway 建立**兩個服務**，分別部署前端與後端。

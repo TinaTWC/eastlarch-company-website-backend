@@ -1,3 +1,4 @@
+import asyncio
 import os
 import smtplib
 from email.mime.text import MIMEText
@@ -112,7 +113,7 @@ class QuoteForm(BaseModel):
     region: str | None = None  # 縣市代碼
 
 
-def _send_quote_email(form: QuoteForm) -> None:
+async def _send_quote_email(form: QuoteForm) -> None:
     """透過 Gmail SMTP 將詢價單內容寄到指定信箱"""
     smtp_email = os.getenv("SMTP_EMAIL")
     smtp_password = os.getenv("SMTP_PASSWORD")
@@ -150,11 +151,15 @@ def _send_quote_email(form: QuoteForm) -> None:
     msg["To"] = recipient
     msg.attach(MIMEText(body, "plain", "utf-8"))
 
-    try:
-        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+    def _do_send():
+        with smtplib.SMTP("smtp.gmail.com", 587, timeout=15) as server:
             server.starttls()
             server.login(smtp_email, smtp_password)
             server.sendmail(smtp_email, recipient, msg.as_string())
+
+    try:
+        loop = asyncio.get_running_loop()
+        await loop.run_in_executor(None, _do_send)
     except smtplib.SMTPAuthenticationError as e:
         raise HTTPException(
             status_code=503,
@@ -169,8 +174,8 @@ def _send_quote_email(form: QuoteForm) -> None:
 
 @app.post("/api/quote")
 async def submit_quote(form: QuoteForm):
-    """接收詢價單表單，將內容寄到 qwqwqw4564@gmail.com"""
-    _send_quote_email(form)
+    """接收詢價單表單，將內容寄到指定信箱"""
+    await _send_quote_email(form)
     return {
         "success": True,
         "message": "詢價單已送出，我們將盡快與您聯繫。",
