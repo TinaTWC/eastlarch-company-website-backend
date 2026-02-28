@@ -1,0 +1,11 @@
+# 排除前端與環境，僅部署後端
+web-frontend/
+node_modules/
+venv/
+.venv/
+.env
+.git/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
