@@ -50,21 +50,6 @@ export default function Quote() {
                     環保節能，利用重力自然排水，無需電力。
                   </span>
                 </div>
-              </label>
-              <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-100 bg-slate-50 p-4 transition-colors hover:border-[#2bee2b]">
-                <input
-                  className="mt-1 size-5 rounded border-slate-300 bg-white accent-[#2bee2b] focus:ring-[#2bee2b]"
-                  type="checkbox"
-                />
-                <div className="flex-1">
-                  <span className="block text-sm font-bold text-slate-900">
-                    定製排水管道 (Custom Drainage Ductwork)
-                  </span>
-                  <span className="text-xs text-slate-500">
-                    依據現場需求訂製的排水管路與接頭。
-                  </span>
-                </div>
-              </label>
             </div>
           </div>
 
