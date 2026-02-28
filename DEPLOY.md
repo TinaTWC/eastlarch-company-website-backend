@@ -19,6 +19,7 @@ API 文件：http://localhost:8000/docs
 | GET | /api/products | 取得產品列表（3 筆假資料） |
 | GET | /api/products/{id} | 取得單一產品詳情 |
 | POST | /api/contact | 提交聯絡表單 |
+| POST | /api/quote | 提交產品詢價單（會寄至 qwqwqw4564@gmail.com） |
 
 ### 聯絡表單 Request Body
 
@@ -33,6 +34,33 @@ API 文件：http://localhost:8000/docs
 ```
 
 `company`、`phone` 為選填。
+
+### 詢價單 Request Body
+
+```json
+{
+  "products": ["電動排水器", "無動力排水器"],
+  "name": "王小明",
+  "email": "wang@example.com",
+  "company": "範例公司",
+  "phone": "02-2345-6789",
+  "region": "taipei"
+}
+```
+
+`company`、`phone`、`region`、`products` 為選填，`name` 和 `email` 為必填。
+
+### 詢價單郵件設定
+
+詢價單會透過 Gmail SMTP 寄到 **qwqwqw4564@gmail.com**。請設定環境變數：
+
+| 變數 | 說明 |
+|------|------|
+| SMTP_EMAIL | Gmail 帳號（建議用 qwqwqw4564@gmail.com） |
+| SMTP_PASSWORD | Gmail 應用程式密碼（需啟用兩步驟驗證後於 [這裡](https://myaccount.google.com/apppasswords) 產生） |
+
+- **本地開發**：複製 `.env.example` 為 `.env` 並填入。
+- **Railway**：在專案設定 → Variables 新增 `SMTP_EMAIL`、`SMTP_PASSWORD`。
 
 ---
 
@@ -66,6 +94,18 @@ const handleSubmit = async (e) => {
   e.preventDefault()
   const data = { name, email, message, company, phone }
   await submitContact(data)
+}
+```
+
+**Quote.jsx** 已使用 `submitQuote()` 提交詢價單（送出後會寄信至 qwqwqw4564@gmail.com）：
+
+```javascript
+import { submitQuote } from '../api/quote.js'
+
+const handleSubmit = async (e) => {
+  e.preventDefault()
+  const data = { products, name, email, company, phone, region }
+  await submitQuote(data)
 }
 ```
 

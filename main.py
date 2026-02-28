@@ -1,8 +1,30 @@
-from fastapi import FastAPI
+import os
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 app = FastAPI(title="排水器公司 API")
+
+# 縣市代碼對應中文（詢價單用）
+REGION_LABELS = {
+    "keelung": "基隆市", "taipei": "台北市", "new_taipei": "新北市",
+    "taoyuan": "桃園市", "hsinchu_city": "新竹市", "hsinchu_county": "新竹縣",
+    "miaoli": "苗栗縣", "taichung": "台中市", "changhua": "彰化縣",
+    "nantou": "南投縣", "yunlin": "雲林縣", "chiayi_city": "嘉義市",
+    "chiayi_county": "嘉義縣", "tainan": "台南市", "kaohsiung": "高雄市",
+    "pingtung": "屏東縣", "yilan": "宜蘭縣", "hualien": "花蓮縣",
+    "taitung": "台東縣", "other": "其他 / 外島地區",
+}
 
 # CORS：允許前端存取（開發 localhost:5173，生產環境請於 Railway 設定 VITE_API_URL）
 app.add_middleware(
@@ -53,8 +75,6 @@ async def get_products():
 @app.get("/api/products/{product_id}")
 async def get_product(product_id: int):
     """回傳單一產品詳情"""
-    from fastapi import HTTPException
-
     for p in MOCK_PRODUCTS:
         if p["id"] == product_id:
             detail = dict(p)
@@ -79,4 +99,79 @@ async def submit_contact(form: ContactForm):
     return {
         "success": True,
         "message": "感謝您的來信，我們將在 24 小時內與您聯繫。",
+    }
+
+
+# ========== 詢價單 API ==========
+class QuoteForm(BaseModel):
+    products: list[str] = []  # 選中的產品名稱，如 ["電動排水器", "無動力排水器"]
+    name: str
+    email: EmailStr
+    company: str | None = None
+    phone: str | None = None
+    region: str | None = None  # 縣市代碼
+
+
+def _send_quote_email(form: QuoteForm) -> None:
+    """透過 Gmail SMTP 將詢價單內容寄到指定信箱"""
+    smtp_email = os.getenv("SMTP_EMAIL")
+    smtp_password = os.getenv("SMTP_PASSWORD")
+    recipient = "ctwtingwei@gmail.com"
+
+    if not smtp_email or not smtp_password:
+        raise HTTPException(
+            status_code=503,
+            detail="郵件服務尚未設定，請聯絡管理員。",
+        )
+
+    region_label = REGION_LABELS.get(form.region, form.region or "未填寫")
+    products_text = "、".join(form.products) if form.products else "未勾選"
+
+    body = f"""
+【產品詢價單 - 新提交】
+
+=== 詢價項目 ===
+{products_text}
+
+=== 聯絡資訊 ===
+姓名：{form.name}
+公司名稱：{form.company or "未填寫"}
+電話：{form.phone or "未填寫"}
+電子郵件：{form.email}
+公司所在地 (服務地區)：{region_label}
+
+---
+此信件由官網詢價表單自動送出，請勿直接回覆。
+""".strip()
+
+    msg = MIMEMultipart()
+    msg["Subject"] = f"產品詢價單 - {form.name} ({form.company or '無公司'})"
+    msg["From"] = smtp_email
+    msg["To"] = recipient
+    msg.attach(MIMEText(body, "plain", "utf-8"))
+
+    try:
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.starttls()
+            server.login(smtp_email, smtp_password)
+            server.sendmail(smtp_email, recipient, msg.as_string())
+    except smtplib.SMTPAuthenticationError as e:
+        raise HTTPException(
+            status_code=503,
+            detail="郵件服務認證失敗，請檢查 SMTP 設定。",
+        ) from e
+    except Exception as e:
+        raise HTTPException(
+            status_code=503,
+            detail=f"郵件寄送失敗：{str(e)}",
+        ) from e
+
+
+@app.post("/api/quote")
+async def submit_quote(form: QuoteForm):
+    """接收詢價單表單，將內容寄到 qwqwqw4564@gmail.com"""
+    _send_quote_email(form)
+    return {
+        "success": True,
+        "message": "詢價單已送出，我們將盡快與您聯繫。",
     }

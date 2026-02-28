@@ -1,4 +1,45 @@
+import { useState } from 'react'
+import { submitQuote } from '../api/quote.js'
+
 export default function Quote() {
+  const [status, setStatus] = useState(null) // 'success' | 'error' | null
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const form = e.target
+
+    const products = []
+    if (form.product_electric?.checked) products.push('電動排水器')
+    if (form.product_gravity?.checked) products.push('無動力排水器')
+
+    const data = {
+      products,
+      name: form.name?.value?.trim() || '',
+      email: form.email?.value?.trim() || '',
+      company: form.company?.value?.trim() || undefined,
+      phone: form.phone?.value?.trim() || undefined,
+      region: form.region?.value || undefined,
+    }
+
+    if (!data.name || !data.email) {
+      setStatus('error')
+      return
+    }
+
+    setIsSubmitting(true)
+    setStatus(null)
+    try {
+      await submitQuote(data)
+      setStatus('success')
+      form.reset()
+    } catch {
+      setStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <main className="flex flex-grow flex-col items-center px-4 py-8 sm:px-6 lg:px-8">
       <div className="w-full max-w-[800px]">
@@ -11,7 +52,7 @@ export default function Quote() {
           </p>
         </div>
 
-        <form className="flex flex-col gap-8">
+        <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
           {/* 詢價項目 */}
           <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <h3 className="mb-6 flex items-center gap-2 text-xl font-bold text-slate-900">
@@ -25,6 +66,7 @@ export default function Quote() {
             <div className="space-y-4">
               <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-100 bg-slate-50 p-4 transition-colors hover:border-[#2bee2b]">
                 <input
+                  name="product_electric"
                   className="mt-1 size-5 rounded border-slate-300 bg-white accent-[#2bee2b] focus:ring-[#2bee2b]"
                   type="checkbox"
                 />
@@ -39,6 +81,7 @@ export default function Quote() {
               </label>
               <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-100 bg-slate-50 p-4 transition-colors hover:border-[#2bee2b]">
                 <input
+                  name="product_gravity"
                   className="mt-1 size-5 rounded border-slate-300 bg-white accent-[#2bee2b] focus:ring-[#2bee2b]"
                   type="checkbox"
                 />
@@ -68,6 +111,8 @@ export default function Quote() {
                   姓名
                 </label>
                 <input
+                  name="name"
+                  required
                   className="w-full rounded-lg border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-[#2bee2b] focus:ring-[#2bee2b]"
                   placeholder="王小明"
                   type="text"
@@ -78,6 +123,7 @@ export default function Quote() {
                   公司名稱
                 </label>
                 <input
+                  name="company"
                   className="w-full rounded-lg border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-[#2bee2b] focus:ring-[#2bee2b]"
                   placeholder="範例工業股份有限公司"
                   type="text"
@@ -88,6 +134,7 @@ export default function Quote() {
                   電話
                 </label>
                 <input
+                  name="phone"
                   className="w-full rounded-lg border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-[#2bee2b] focus:ring-[#2bee2b]"
                   placeholder="02-2345-6789"
                   type="tel"
@@ -98,6 +145,8 @@ export default function Quote() {
                   電子郵件
                 </label>
                 <input
+                  name="email"
+                  required
                   className="w-full rounded-lg border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-[#2bee2b] focus:ring-[#2bee2b]"
                   placeholder="wang@company.com"
                   type="email"
@@ -107,7 +156,10 @@ export default function Quote() {
                 <label className="mb-2 block text-sm font-semibold text-slate-700">
                   公司所在地 (服務地區)
                 </label>
-                <select className="w-full rounded-lg border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-[#2bee2b] focus:ring-[#2bee2b]">
+                <select
+                  name="region"
+                  className="w-full rounded-lg border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-[#2bee2b] focus:ring-[#2bee2b]"
+                >
                   <option value="">請選擇縣市...</option>
                   <option value="keelung">基隆市</option>
                   <option value="taipei">台北市</option>
@@ -137,12 +189,39 @@ export default function Quote() {
             </div>
           </div>
 
+          {(status === 'success' || status === 'error') && (
+            <div
+              className={`rounded-lg border p-4 ${
+                status === 'success'
+                  ? 'border-green-200 bg-green-50 text-green-800'
+                  : 'border-red-200 bg-red-50 text-red-800'
+              }`}
+            >
+              {status === 'success' ? (
+                <>
+                  <span className="material-symbols-outlined mr-2 align-middle text-green-600">
+                    check_circle
+                  </span>
+                  詢價單已送出，我們將盡快與您聯繫。
+                </>
+              ) : (
+                <>
+                  <span className="material-symbols-outlined mr-2 align-middle text-red-600">
+                    error
+                  </span>
+                  提交失敗，請稍後再試或直接致電聯絡我們。
+                </>
+              )}
+            </div>
+          )}
+
           <div className="flex items-center justify-center pt-4">
             <button
-              className="flex w-full transform items-center justify-center gap-2 rounded-lg bg-[#2bee2b] px-12 py-4 text-lg font-bold text-slate-900 shadow-md transition-all hover:bg-[#1fa81f] hover:shadow-lg active:scale-95 sm:w-auto"
-              type="button"
+              className="flex w-full transform items-center justify-center gap-2 rounded-lg bg-[#2bee2b] px-12 py-4 text-lg font-bold text-slate-900 shadow-md transition-all hover:bg-[#1fa81f] hover:shadow-lg active:scale-95 disabled:opacity-60 sm:w-auto"
+              type="submit"
+              disabled={isSubmitting}
             >
-              提交詢價
+              {isSubmitting ? '提交中…' : '提交詢價'}
               <span className="material-symbols-outlined text-xl">send</span>
             </button>
           </div>
