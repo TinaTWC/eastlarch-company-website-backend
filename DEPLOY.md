@@ -19,7 +19,7 @@ API 文件：http://localhost:8000/docs
 | GET | /api/products | 取得產品列表（3 筆假資料） |
 | GET | /api/products/{id} | 取得單一產品詳情 |
 | POST | /api/contact | 提交聯絡表單 |
-| POST | /api/quote | 提交產品詢價單（會寄至 qwqwqw4564@gmail.com） |
+| POST | /api/quote | 提交產品詢價單（會寄至 ctwtingwei@gmail.com） |
 
 ### 聯絡表單 Request Body
 
@@ -56,14 +56,14 @@ API 文件：http://localhost:8000/docs
 
 **設定步驟：**
 
-1. 前往 [Resend](https://resend.com) 註冊（建議用收信信箱 qwqwqw4564@gmail.com）
+1. 前往 [Resend](https://resend.com) 註冊（建議用收信信箱 ctwtingwei@gmail.com）
 2. 到 [API Keys](https://resend.com/api-keys) 建立金鑰
 3. 設定環境變數：
 
 | 變數 | 必填 | 說明 |
 |------|------|------|
 | RESEND_API_KEY | ✓ | Resend API 金鑰（re_ 開頭） |
-| QUOTE_RECIPIENT_EMAIL | | 收件人（預設 qwqwqw4564@gmail.com） |
+| QUOTE_RECIPIENT_EMAIL | | 收件人（預設 ctwtingwei@gmail.com） |
 | RESEND_FROM | | 寄件人顯示（預設 `官網詢價 <onboarding@resend.dev>`） |
 
 - **本地開發**：複製 `.env.example` 為 `.env` 並填入 `RESEND_API_KEY`。
@@ -106,7 +106,7 @@ const handleSubmit = async (e) => {
 }
 ```
 
-**Quote.jsx** 已使用 `submitQuote()` 提交詢價單（送出後會寄信至 qwqwqw4564@gmail.com）：
+**Quote.jsx** 已使用 `submitQuote()` 提交詢價單（送出後會寄信至 ctwtingwei@gmail.com）：
 
 ```javascript
 import { submitQuote } from '../api/quote.js'

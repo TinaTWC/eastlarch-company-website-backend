@@ -113,7 +113,7 @@ class QuoteForm(BaseModel):
 async def _send_quote_email(form: QuoteForm) -> None:
     """透過 Resend API 將詢價單內容寄到指定信箱（使用 HTTPS，適用 Railway 等雲端平台）"""
     api_key = os.getenv("RESEND_API_KEY")
-    recipient = os.getenv("QUOTE_RECIPIENT_EMAIL", "qwqwqw4564@gmail.com")
+    recipient = os.getenv("QUOTE_RECIPIENT_EMAIL", "ctwtingwei@gmail.com")
 
     if not api_key:
         raise HTTPException(
