@@ -3,6 +3,7 @@ import { submitQuote } from '../api/quote.js'
 
 export default function Quote() {
   const [status, setStatus] = useState(null) // 'success' | 'error' | null
+  const [errorMessage, setErrorMessage] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSubmit = async (e) => {
@@ -29,12 +30,14 @@ export default function Quote() {
 
     setIsSubmitting(true)
     setStatus(null)
+    setErrorMessage('')
     try {
       await submitQuote(data)
       setStatus('success')
       form.reset()
-    } catch {
+    } catch (err) {
       setStatus('error')
+      setErrorMessage(err?.message || '提交失敗，請稍後再試。')
     } finally {
       setIsSubmitting(false)
     }
@@ -209,7 +212,7 @@ export default function Quote() {
                   <span className="material-symbols-outlined mr-2 align-middle text-red-600">
                     error
                   </span>
-                  提交失敗，請稍後再試或直接致電聯絡我們。
+                  {errorMessage || '提交失敗，請稍後再試或直接致電聯絡我們。'}
                 </>
               )}
             </div>

@@ -18,7 +18,18 @@ export async function submitQuote(data) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   })
-  const json = await res.json()
-  if (!res.ok) throw new Error(json.detail || '提交失敗')
+  let json
+  try {
+    json = await res.json()
+  } catch {
+    throw new Error(`伺服器回應異常 (${res.status})`)
+  }
+  if (!res.ok) {
+    const d = json.detail
+    const msg = Array.isArray(d)
+      ? d.map((x) => x.msg || JSON.stringify(x)).join('、')
+      : d || '提交失敗'
+    throw new Error(msg)
+  }
   return json
 }
