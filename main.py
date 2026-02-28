@@ -1,8 +1,5 @@
 import asyncio
 import os
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -114,12 +111,11 @@ class QuoteForm(BaseModel):
 
 
 async def _send_quote_email(form: QuoteForm) -> None:
-    """透過 Gmail SMTP 將詢價單內容寄到指定信箱"""
-    smtp_email = os.getenv("SMTP_EMAIL")
-    smtp_password = os.getenv("SMTP_PASSWORD")
-    recipient = "ctwtingwei@gmail.com"
+    """透過 Resend API 將詢價單內容寄到指定信箱（使用 HTTPS，適用 Railway 等雲端平台）"""
+    api_key = os.getenv("RESEND_API_KEY")
+    recipient = os.getenv("QUOTE_RECIPIENT_EMAIL", "qwqwqw4564@gmail.com")
 
-    if not smtp_email or not smtp_password:
+    if not api_key:
         raise HTTPException(
             status_code=503,
             detail="郵件服務尚未設定，請聯絡管理員。",
@@ -145,26 +141,24 @@ async def _send_quote_email(form: QuoteForm) -> None:
 此信件由官網詢價表單自動送出，請勿直接回覆。
 """.strip()
 
-    msg = MIMEMultipart()
-    msg["Subject"] = f"產品詢價單 - {form.name} ({form.company or '無公司'})"
-    msg["From"] = smtp_email
-    msg["To"] = recipient
-    msg.attach(MIMEText(body, "plain", "utf-8"))
+    subject = f"產品詢價單 - {form.name} ({form.company or '無公司'})"
 
     def _do_send():
-        with smtplib.SMTP("smtp.gmail.com", 587, timeout=15) as server:
-            server.starttls()
-            server.login(smtp_email, smtp_password)
-            server.sendmail(smtp_email, recipient, msg.as_string())
+        import resend
+
+        resend.api_key = api_key
+        resend.Emails.send(
+            {
+                "from": os.getenv("RESEND_FROM", "官網詢價 <onboarding@resend.dev>"),
+                "to": [recipient],
+                "subject": subject,
+                "text": body,
+            }
+        )
 
     try:
         loop = asyncio.get_running_loop()
         await loop.run_in_executor(None, _do_send)
-    except smtplib.SMTPAuthenticationError as e:
-        raise HTTPException(
-            status_code=503,
-            detail="郵件服務認證失敗，請檢查 SMTP 設定。",
-        ) from e
     except Exception as e:
         raise HTTPException(
             status_code=503,

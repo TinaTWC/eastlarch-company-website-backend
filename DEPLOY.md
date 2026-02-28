@@ -50,19 +50,26 @@ API 文件：http://localhost:8000/docs
 
 `company`、`phone`、`region`、`products` 為選填，`name` 和 `email` 為必填。
 
-### 詢價單郵件設定
+### 詢價單郵件設定（Resend API）
 
-詢價單會透過 Gmail SMTP 寄到 **qwqwqw4564@gmail.com**。請設定環境變數：
+因 Railway 等雲端平台會封鎖 SMTP，改使用 **Resend**（走 HTTPS，不受限）。免費方案每月 3,000 封。
 
-| 變數 | 說明 |
-|------|------|
-| SMTP_EMAIL | Gmail 帳號（建議用 qwqwqw4564@gmail.com） |
-| SMTP_PASSWORD | Gmail 應用程式密碼（需啟用兩步驟驗證後於 [這裡](https://myaccount.google.com/apppasswords) 產生） |
+**設定步驟：**
 
-- **本地開發**：複製 `.env.example` 為 `.env` 並填入。`.env` 僅用於本機，**不會**上傳到 Git（已列在 .gitignore）。
-- **Railway**：**不使用 .env 檔**，改在 Railway 後端服務 → **Variables** 頁籤新增：
-  - `SMTP_EMAIL` = 你的 Gmail（如 qwqwqw4564@gmail.com）
-  - `SMTP_PASSWORD` = Gmail 應用程式密碼（16 碼）
+1. 前往 [Resend](https://resend.com) 註冊（建議用收信信箱 qwqwqw4564@gmail.com）
+2. 到 [API Keys](https://resend.com/api-keys) 建立金鑰
+3. 設定環境變數：
+
+| 變數 | 必填 | 說明 |
+|------|------|------|
+| RESEND_API_KEY | ✓ | Resend API 金鑰（re_ 開頭） |
+| QUOTE_RECIPIENT_EMAIL | | 收件人（預設 qwqwqw4564@gmail.com） |
+| RESEND_FROM | | 寄件人顯示（預設 `官網詢價 <onboarding@resend.dev>`） |
+
+- **本地開發**：複製 `.env.example` 為 `.env` 並填入 `RESEND_API_KEY`。
+- **Railway**：在後端服務 → **Variables** 新增 `RESEND_API_KEY`（與 `QUOTE_RECIPIENT_EMAIL` 若需自訂）。
+
+> 使用 `onboarding@resend.dev` 時，Resend 僅能寄到**註冊帳號信箱**。若收件人不是註冊信箱，需至 [Domains](https://resend.com/domains) 驗證網域後改用自訂寄件人。
 
 ---
 
@@ -152,7 +159,7 @@ pydantic[email]>=2.0.0
 2. 新增專案 → Deploy from GitHub（或本機上傳）
 3. 選擇此專案根目錄
 4. Railway 會偵測 Dockerfile 並建置
-5. **設定環境變數**：點選後端服務 → **Variables** → 新增 `SMTP_EMAIL`、`SMTP_PASSWORD`（值與本地 .env 相同，但 Railway 不會讀取 .env 檔）
+5. **設定環境變數**：點選後端服務 → **Variables** → 新增 `RESEND_API_KEY`（到 resend.com 建立金鑰）
 6. 部署完成後會取得公開 URL（如 `https://xxx.railway.app`）
 7. 在前端專案設定 `VITE_API_URL` 為後端網址，並重新 build
 
