@@ -128,7 +128,8 @@ async def _send_quote_email(form: QuoteForm) -> None:
 【產品詢價單 - 新提交】
 
 === 詢價項目 ===
-{products_text}
+來自公司名稱：{form.company or "未填寫"} 對於
+{products_text} 的詢價單，請盡快回覆喔。
 
 === 聯絡資訊 ===
 姓名：{form.name}
@@ -143,18 +144,21 @@ async def _send_quote_email(form: QuoteForm) -> None:
 
     subject = f"產品詢價單 - {form.name} ({form.company or '無公司'})"
 
+    manager_email = os.getenv("MANAGER_EMAIL", "").strip()
+    payload = {
+        "from": os.getenv("RESEND_FROM", "官網詢價 <onboarding@resend.dev>"),
+        "to": [recipient],
+        "subject": subject,
+        "text": body,
+    }
+    if manager_email:
+        payload["cc"] = [manager_email]
+
     def _do_send():
         import resend
 
         resend.api_key = api_key
-        resend.Emails.send(
-            {
-                "from": os.getenv("RESEND_FROM", "官網詢價 <onboarding@resend.dev>"),
-                "to": [recipient],
-                "subject": subject,
-                "text": body,
-            }
-        )
+        resend.Emails.send(payload)
 
     try:
         loop = asyncio.get_running_loop()

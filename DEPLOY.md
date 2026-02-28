@@ -64,6 +64,7 @@ API 文件：http://localhost:8000/docs
 |------|------|------|
 | RESEND_API_KEY | ✓ | Resend API 金鑰（re_ 開頭） |
 | QUOTE_RECIPIENT_EMAIL | | 收件人（預設 ctwtingwei@gmail.com） |
+| MANAGER_EMAIL | | 主管信箱（CC 副本），未設定時僅寄給收件人 |
 | RESEND_FROM | | 寄件人顯示（預設 `官網詢價 <onboarding@resend.dev>`） |
 
 - **本地開發**：複製 `.env.example` 為 `.env` 並填入 `RESEND_API_KEY`。
