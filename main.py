@@ -90,10 +90,66 @@ class ContactForm(BaseModel):
     phone: str | None = None    # 選填
 
 
+async def _send_contact_email(form: ContactForm) -> None:
+    """透過 Resend API 將聯絡表單內容寄到指定信箱（收件人 + 主管 CC）"""
+    api_key = os.getenv("RESEND_API_KEY")
+    recipient = os.getenv("QUOTE_RECIPIENT_EMAIL", "ctwtingwei@gmail.com")
+
+    if not api_key:
+        raise HTTPException(
+            status_code=503,
+            detail="郵件服務尚未設定，請聯絡管理員。",
+        )
+
+    body = f"""
+【聯絡表單 - 新提交】
+
+=== 聯絡資訊 ===
+姓名：{form.name}
+公司名稱：{form.company or "未填寫"}
+電話：{form.phone or "未填寫"}
+電子郵件：{form.email}
+
+=== 訊息內容 ===
+{form.message}
+
+---
+此信件由官網聯絡表單自動送出，請勿直接回覆。
+""".strip()
+
+    subject = f"聯絡表單 - {form.name} ({form.company or '無公司'})"
+
+    resend_from = os.getenv("RESEND_FROM", "Eastlarch 系統通知 <noreply@eastlarch.com>")
+    manager_email = os.getenv("MANAGER_EMAIL", "").strip()
+    payload = {
+        "from": resend_from,
+        "to": [recipient],
+        "subject": subject,
+        "text": body,
+    }
+    if manager_email and "onboarding@resend.dev" not in resend_from:
+        payload["cc"] = [manager_email]
+
+    def _do_send():
+        import resend
+
+        resend.api_key = api_key
+        resend.Emails.send(payload)
+
+    try:
+        loop = asyncio.get_running_loop()
+        await loop.run_in_executor(None, _do_send)
+    except Exception as e:
+        raise HTTPException(
+            status_code=503,
+            detail=f"郵件寄送失敗：{str(e)}",
+        ) from e
+
+
 @app.post("/api/contact")
 async def submit_contact(form: ContactForm):
-    """接收聯絡表單，回傳成功訊息"""
-    # 實際部署時可在此將資料寫入資料庫或寄出郵件
+    """接收聯絡表單，寄信給收件人與主管，回傳成功訊息"""
+    await _send_contact_email(form)
     return {
         "success": True,
         "message": "感謝您的來信，我們將在 24 小時內與您聯繫。",

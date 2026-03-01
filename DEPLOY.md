@@ -18,7 +18,7 @@ API 文件：http://localhost:8000/docs
 |------|------|------|
 | GET | /api/products | 取得產品列表（3 筆假資料） |
 | GET | /api/products/{id} | 取得單一產品詳情 |
-| POST | /api/contact | 提交聯絡表單 |
+| POST | /api/contact | 提交聯絡表單（會寄信給收件人與主管） |
 | POST | /api/quote | 提交產品詢價單（會寄至 ctwtingwei@gmail.com） |
 
 ### 聯絡表單 Request Body

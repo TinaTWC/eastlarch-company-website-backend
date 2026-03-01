@@ -3,6 +3,7 @@ import { submitContact } from '../api/contact.js'
 
 export default function Contact() {
   const [status, setStatus] = useState(null) // 'success' | 'error' | null
+  const [errorMessage, setErrorMessage] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSubmit = async (e) => {
@@ -21,12 +22,14 @@ export default function Contact() {
     }
     setIsSubmitting(true)
     setStatus(null)
+    setErrorMessage('')
     try {
       await submitContact(data)
       setStatus('success')
       form.reset()
-    } catch {
+    } catch (err) {
       setStatus('error')
+      setErrorMessage(err?.message || '提交失敗，請稍後再試。')
     } finally {
       setIsSubmitting(false)
     }
@@ -245,7 +248,7 @@ export default function Contact() {
                 )}
                 {status === 'error' && (
                   <p className="rounded-lg bg-red-100 p-3 text-sm font-medium text-red-600">
-                    提交失敗，請稍後再試或直接來電聯繫。
+                    {errorMessage || '提交失敗，請稍後再試或直接來電聯繫。'}
                   </p>
                 )}
                 <button
