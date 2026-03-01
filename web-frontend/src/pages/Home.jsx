@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export default function Home() {
   return (
     <>
@@ -23,9 +25,12 @@ export default function Home() {
             </p>
 
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <button className="inline-flex h-12 w-full items-center justify-center rounded-lg bg-primary px-8 text-base font-bold text-white shadow-lg shadow-emerald-200 transition-colors hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-white sm:w-auto">
+              <Link
+                to="/products"
+                className="inline-flex h-12 w-full items-center justify-center rounded-lg bg-primary px-8 text-base font-bold text-white shadow-lg shadow-emerald-200 transition-colors hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-white sm:w-auto"
+              >
                 查看商品
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -104,7 +109,7 @@ export default function Home() {
                 為您的廠房量身打造
               </h2>
               <p className="mb-8 text-lg leading-relaxed text-slate-600">
-                無論是廠區雨水排水，還是室內汙水排放需求，VENTI-PRO
+                無論是廠區雨水排水，還是室內汙水排放需求，落葉松
                 都能提供最適合的系統規劃。我們的工程師將親臨現場評估，確保每一分投資都發揮最大效益。
               </p>
 
@@ -129,15 +134,6 @@ export default function Home() {
                 </li>
               </ul>
 
-              <a
-                className="inline-flex items-center font-bold text-primary transition-colors hover:text-primary-hover"
-                href="#"
-              >
-                深入了解我們的服務
-                <span className="material-symbols-outlined ml-1 text-sm">
-                  arrow_forward
-                </span>
-              </a>
             </div>
           </div>
         </div>

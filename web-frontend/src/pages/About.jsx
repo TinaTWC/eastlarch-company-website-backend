@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export default function About() {
   return (
     <>
@@ -135,9 +137,12 @@ export default function About() {
               讓我們攜手打造更安全、更高效的工業排水系統。
             </p>
             <div className="mt-4 flex flex-col gap-4 sm:flex-row">
-              <button className="rounded-lg bg-[#13ec13] py-3 px-8 font-bold text-[#111811] shadow-lg transition-colors hover:bg-[#0fa80f] hover:shadow-[#13ec13]/50">
+              <Link
+                to="/contact"
+                className="inline-flex items-center justify-center rounded-lg bg-[#13ec13] py-3 px-8 font-bold text-[#111811] shadow-lg transition-colors hover:bg-[#0fa80f] hover:shadow-[#13ec13]/50"
+              >
                 聯絡我們
-              </button>
+              </Link>
             </div>
           </div>
         </div>
