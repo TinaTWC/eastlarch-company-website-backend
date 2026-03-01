@@ -144,14 +144,17 @@ async def _send_quote_email(form: QuoteForm) -> None:
 
     subject = f"產品詢價單 - {form.name} ({form.company or '無公司'})"
 
+    resend_from = os.getenv("RESEND_FROM", "Eastlarch 系統通知 <noreply@eastlarch.com>")
     manager_email = os.getenv("MANAGER_EMAIL", "").strip()
     payload = {
-        "from": os.getenv("RESEND_FROM", "官網詢價 <onboarding@resend.dev>"),
+        "from": resend_from,
         "to": [recipient],
         "subject": subject,
         "text": body,
     }
-    if manager_email:
+    # Resend 測試寄件人 (onboarding@resend.dev) 僅允許寄給註冊信箱，CC 他人會失敗
+    # 使用驗證網域後才加入 CC
+    if manager_email and "onboarding@resend.dev" not in resend_from:
         payload["cc"] = [manager_email]
 
     def _do_send():
