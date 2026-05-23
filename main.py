@@ -39,7 +39,7 @@ app.add_middleware(
 MOCK_PRODUCTS = [
     {
         "id": 1,
-        "name": "全透明節能電子式排水器",
+        "name": "FE110 -FE220全透明排水器",
         "model": "BFE110 / BFE220",
         "description": "採用全透明桶身設計，可即時目視積水狀態，結合電子感應控制自動排水，達到節能省電、免人工巡視的智能管理效果。適用於壓縮空氣系統、冷凍乾燥機、精密過濾器等工業設備。",
         "image_url": "/images/fe220-angle.jpg",

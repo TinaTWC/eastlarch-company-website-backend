@@ -75,10 +75,10 @@ export default function Quote() {
                 />
                 <div className="flex-1">
                   <span className="block text-sm font-bold text-slate-900">
-                    電動排水器 (Electric Drainage Pump)
+                    FE110 -FE220全透明排水器
                   </span>
                   <span className="text-xs text-slate-500">
-                    適用於一般廠房排水，高效率馬達驅動。
+                    全透明桶身，電子感應自動排水，節能省電。
                   </span>
                 </div>
               </label>

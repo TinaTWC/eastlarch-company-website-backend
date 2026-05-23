@@ -2,17 +2,17 @@ export const products = [
   {
     id: 1,
     category: '電動排水',
-    name: '電動式排水器',
-    desc: '專為廠房設計，具備高流量與低噪音特性，有效排除積水與汙水。高效率馬達驅動，適用於需穩定強力排水之場域。',
-    intro: `電動式排水器採用高效率馬達驅動，專為工業廠房、倉儲、地下停車場等場域設計。具備高流量與低噪音特性，能有效排除積水與汙水，確保作業環境乾燥安全。
+    name: 'FE110 -FE220全透明排水器',
+    desc: '採用全透明桶身設計，可即時目視積水狀態，結合電子感應控制自動排水，達到節能省電、免人工巡視的智能管理效果。',
+    intro: `FE110 -FE220全透明排水器專為壓縮空氣系統設計，透過全透明 PC 桶身讓操作人員隨時掌握積水量，搭配電子液位感應器實現全自動精準排水。
 
 產品特點：
-• 高效率馬達，省電耐用
-• 低噪音設計，不干擾作業
-• 適用於需穩定強力排水之場域
-• 符合工業安全標準
+• 全透明 PC 桶身，積水狀態一目了然
+• 電子感應自動排水，精準節能
+• 三色 LED 狀態顯示，異常即時判斷
+• 耐壓 ≤ 16 bar、耐溫 ≤ 80°C
 
-適用場所：廠房、倉庫、地下停車場、機房、戶外積水區等。`,
+適用場所：空氣壓縮機、冷凍乾燥機、精密過濾器、空氣儲槽等。`,
     img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAGKAbmrPcFcRwOUcF4nfsF-BC09aUzYQTosowdXnmkviSEBZvgKlcLmAhn7PpBaMB8mMc9GgukmHw3Op4ngI2SQB59efPy6T75f6ddJHU5a11Zkte7oAQCfRQmV0YM88DotDnsBkXbnkIK-GetRsJXX5ohC0DzfEXsmquSwZvKRGGAhwdtDmiW2J9lp-4INWAqX2SZuz6VTXqw86TaiRhae4siwiPjOMJtSD3iXMshNkkGJTtYIBjFqSTisf-D0tdjWQRMCM-xu38',
   },
   {
