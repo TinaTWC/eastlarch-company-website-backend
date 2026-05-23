@@ -97,6 +97,21 @@ export default function Quote() {
                   </span>
                 </div>
               </label>
+              <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-100 bg-slate-50 p-4 transition-colors hover:border-[#2bee2b]">
+                <input
+                  name="product_ndfa827"
+                  className="mt-1 size-5 rounded border-slate-300 bg-white accent-[#2bee2b] focus:ring-[#2bee2b]"
+                  type="checkbox"
+                />
+                <div className="flex-1">
+                  <span className="block text-sm font-bold text-slate-900">
+                    NDFA-827 無耗能機械式自動排水器
+                  </span>
+                  <span className="text-xs text-slate-500">
+                    氣壓缸機械驅動，不鏽鋼球閥，適合高壓大流量場合。
+                  </span>
+                </div>
+              </label>
             </div>
           </div>
 
