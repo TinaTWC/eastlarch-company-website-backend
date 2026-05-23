@@ -90,10 +90,10 @@ export default function Quote() {
                 />
                 <div className="flex-1">
                   <span className="block text-sm font-bold text-slate-900">
-                    無動力排水器 (Gravity Drainage)
+                    FE110 -FE220 無耗能自動排水器
                   </span>
                   <span className="text-xs text-slate-500">
-                    環保節能，利用重力自然排水，無需電力。
+                    氣壓浮球驅動，零耗電，全透明桶身。
                   </span>
                 </div>
               </label>

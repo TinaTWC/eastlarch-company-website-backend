@@ -75,11 +75,38 @@ MOCK_PRODUCTS = [
     },
     {
         "id": 2,
-        "name": "無耗能自動排水氣",
-        "description": "利用重力自然排水，零電費運轉。SUS304 不鏽鋼材質耐用抗腐蝕，環保節能，適合屋頂及一般排水需求。",
-        "image_url": "https://lh3.googleusercontent.com/aida-public/AB6AXuCRCU_kga-sCtYP-K1Sg2sxhIIujLtlsqiUlHlVJ6wODxLItNvVCac6bFPmFWcFnVPWtfJLlDA-bTRplJG0yieeDZ46JEfIt-IdGl33h9Y7EvnlC-Gxzr2R6GmnhVmUC8AKmlLTWjB_uSWNVN1BCbWqo2u_Bf5IjeWbWagPso_myefxDIE5ImWnoT2n00MUGDq99PhP2pEAt1hA4BwboAkSRYqqVu1uDqWRri4ZNWKcAEOy_2nxt4TFG7Kpe2uy3uwuF0ZUkr5BvZ8",
-        "category": "無耗能自動排水氣",
-        "intro": "無動力排水器利用浮力原理自然排水，無需電力即可運轉，零電費、零耗能。採用 SUS304 不鏽鋼材質，耐腐蝕、壽命長。\n\n產品特點：\n• 重力排水，零電費運轉\n• SUS304 不鏽鋼，耐腐蝕\n• 環保節能，無碳排放\n• 結構簡單，維護容易",
+        "name": "FE110 -FE220 無耗能自動排水器",
+        "model": "FE110 / FE220",
+        "description": "利用系統本身壓縮空氣壓力驅動浮球機構自動排水，完全無需外部電源，零電費運轉。全透明 PC 桶身可即時目視積水量，SUS304 不鏽鋼濾芯耐腐蝕、免耗材更換，適合各類壓縮空氣系統長期穩定使用。",
+        "image_url": "/images/fe-drain-angle.jpg",
+        "images": [
+            "/images/fe-drain-angle.jpg",
+            "/images/fe-drain-front.jpg",
+            "/images/fe-drain-side.jpg",
+        ],
+        "category": "無耗能自動排水",
+        "specs": {
+            "型號": "FE110 / FE220",
+            "驅動方式": "氣壓浮球式（無需外部電源）",
+            "耐壓": "≤ 16 bar",
+            "耐溫": "≤ 80 °C",
+            "最大排水量": "≤ 12 L/min",
+            "桶身材質": "全透明 PC（聚碳酸酯）",
+            "濾芯材質": "SUS304 不鏽鋼",
+            "接口尺寸": "PT 1/2\"",
+            "安裝方式": "水平壁掛式",
+            "耗電量": "零耗電",
+        },
+        "features": [
+            {"title": "零耗電運轉", "desc": "利用壓縮空氣系統本身壓力驅動，完全不需要外接電源，節能環保。"},
+            {"title": "全透明桶身", "desc": "PC 材質透明桶身，積水量一目了然，免拆機即可掌握運作狀態。"},
+            {"title": "氣壓浮球自動控制", "desc": "浮球機構隨水位自動啟閉排水閥，無需人工操作，全程自動化。"},
+            {"title": "SUS304 不鏽鋼濾芯", "desc": "不鏽鋼濾芯耐腐蝕、壽命長，無需定期更換耗材，維護成本極低。"},
+            {"title": "高耐壓耐溫設計", "desc": "耐壓 ≤ 16 bar、耐溫 ≤ 80°C，符合嚴苛工業現場長期使用需求。"},
+            {"title": "水平壁掛安裝", "desc": "水平圓筒式設計，安裝空間需求小，適合各類管路配置場景。"},
+        ],
+        "intro": "FE110 -FE220 無耗能自動排水器採用氣壓浮球驅動機構，完全依靠壓縮空氣系統本身的壓力自動排水，無需任何外部電力，實現真正的零耗能運轉。\n\n全透明 PC 桶身設計讓操作人員可隨時目視積水狀態，搭配 SUS304 不鏽鋼濾芯，耐腐蝕、壽命長，大幅降低日常維護成本。\n\n適用場景：空氣壓縮機、後冷器、精密過濾器、空氣儲槽及各類不方便接電的氣動設備安裝位置，廣泛應用於製造業、食品業、電子業等需要穩定乾燥壓縮空氣的工業環境。",
+        "applications": ["壓縮空氣系統", "後冷器", "精密過濾器", "空氣儲槽", "無電源安裝場所"],
     }
 ]
 

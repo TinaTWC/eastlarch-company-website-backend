@@ -2,7 +2,7 @@ export const products = [
   {
     id: 1,
     category: '電動排水',
-    name: 'FE110 -FE220全透明排水器',
+    name: 'FE110 -FE220全透明電子式排水器',
     desc: '採用全透明桶身設計，可即時目視積水狀態，結合電子感應控制自動排水，達到節能省電、免人工巡視的智能管理效果。',
     intro: `FE110 -FE220全透明排水器專為壓縮空氣系統設計，透過全透明 PC 桶身讓操作人員隨時掌握積水量，搭配電子液位感應器實現全自動精準排水。
 
@@ -17,18 +17,18 @@ export const products = [
   },
   {
     id: 2,
-    category: '無動力排水',
-    name: '無動力排水器',
-    desc: '利用重力自然排水，零電費運轉。SUS304 不鏽鋼材質耐用抗腐蝕，環保節能，適合屋頂及一般排水需求。',
-    intro: `無動力排水器利用重力原理自然排水，無需電力即可運轉，零電費、零耗能。採用 SUS304 不鏽鋼材質，耐腐蝕、壽命長，適合屋頂、陽台及一般排水需求。
+    category: '無耗能自動排水',
+    name: 'FE110 -FE220 無耗能自動排水器',
+    desc: '利用系統本身壓縮空氣壓力驅動浮球機構自動排水，完全無需外部電源，零電費運轉。全透明 PC 桶身，SUS304 不鏽鋼濾芯，耐腐蝕免耗材。',
+    intro: `FE110 -FE220 無耗能自動排水器採用氣壓浮球驅動機構，完全依靠壓縮空氣系統本身的壓力自動排水，無需任何外部電力。
 
 產品特點：
-• 重力排水，零電費運轉
-• SUS304 不鏽鋼，耐腐蝕
-• 環保節能，無碳排放
-• 結構簡單，維護容易
+• 零耗電，利用氣壓浮球自動排水
+• 全透明 PC 桶身，積水狀態一目了然
+• SUS304 不鏽鋼濾芯，耐腐蝕壽命長
+• 耐壓 ≤ 16 bar、耐溫 ≤ 80°C
 
-適用場所：廠房屋頂、商業大樓、住宅陽台、雨水收集區等。`,
-    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCRCU_kga-sCtYP-K1Sg2sxhIIujLtlsqiUlHlVJ6wODxLItNvVCac6bFPmFWcFnVPWtfJLlDA-bTRplJG0yieeDZ46JEfIt-IdGl33h9Y7EvnlC-Gxzr2R6GmnhVmUC8AKmlLTWjB_uSWNVN1BCbWqo2u_Bf5IjeWbWagPso_myefxDIE5ImWnoT2n00MUGDq99PhP2pEAt1hA4BwboAkSRYqqVu1uDqWRri4ZNWKcAEOy_2nxt4TFG7Kpe2uy3uwuF0ZUkr5BvZ8',
+適用場所：空氣壓縮機、後冷器、精密過濾器、空氣儲槽及無電源安裝位置。`,
+    img: '/images/fe-drain-angle.jpg',
   },
 ]
