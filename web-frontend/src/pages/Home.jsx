@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-hero-bg py-20 lg:py-32">
+      <section className="relative overflow-hidden bg-hero-bg py-10 lg:py-16">
         <div
           className="absolute inset-0 z-0 opacity-20"
           data-alt="Abstract geometric dot pattern on light green background"
@@ -24,24 +24,15 @@ export default function Home() {
         />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-4xl">
-            <h1 className="mb-6 text-4xl font-black leading-tight tracking-tight text-secondary sm:text-5xl lg:text-6xl">
+          <div className="mx-auto max-w-3xl">
+            <h1 className="mb-4 text-3xl font-black leading-tight tracking-tight text-secondary sm:text-4xl lg:text-5xl">
               穩定排水，守護製程：
               <br className="hidden sm:block" />
               電動與無動力雙效專家
             </h1>
-            <p className="mx-auto mb-10 max-w-2xl text-lg font-medium leading-relaxed text-slate-600">
+            <p className="mx-auto max-w-2xl text-base font-medium leading-relaxed text-slate-600">
               提供最高標準的工業排水解決方案，結合電動與無動力技術，優化您的生產環境，打造高效、安全的作業空間。
             </p>
-
-            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Link
-                to="/products"
-                className="inline-flex h-12 w-full items-center justify-center rounded-lg bg-primary px-8 text-base font-bold text-white shadow-lg shadow-emerald-200 transition-colors hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-white sm:w-auto"
-              >
-                查看商品
-              </Link>
-            </div>
           </div>
         </div>
       </section>
