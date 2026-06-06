@@ -169,59 +169,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
-            <div className="order-2 lg:order-1">
-              <div className="relative h-[400px] w-full overflow-hidden rounded-2xl bg-slate-50 shadow-lg ring-1 ring-slate-100">
-                <div
-                  className="absolute inset-0 bg-cover bg-center"
-                  data-alt="Modern industrial factory with drainage systems"
-                  style={{
-                    backgroundImage:
-                      "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBcA8mhWLb7k7YE2nLdlubWAzPHZJngOiHN5T64d7NjBbvRqLtmQfDxRC_RauO1ck6Wf3Vgc57KCcahBMszC5uqayGBNMCj47XaWpNhW4NegJHDEjD_zApU4SBJtTM1nQPCI1m4_tACGLbycAM59q5DXMhZOFqnElLKTKVO5alLNvpJPa_YgWAV6Qw-2Rp4oseKKGHX6uYfLLvZlsqwjRySVl6gN8Ho2UIA1x3pbUr-x61gd3Pjka3wED7mduHKfDDXtHFtie-9OiE')",
-                  }}
-                />
-              </div>
-            </div>
 
-            <div className="order-1 lg:order-2">
-              <h3 className="mb-2 text-sm font-bold uppercase tracking-wider text-primary">
-                工業級解決方案
-              </h3>
-              <h2 className="mb-6 text-3xl font-bold tracking-tight text-secondary sm:text-4xl">
-                為您的廠房量身打造
-              </h2>
-              <p className="mb-8 text-lg leading-relaxed text-slate-600">
-                無論是廠區雨水排水，還是室內汙水排放需求，落葉松
-                都能提供最適合的系統規劃。我們的工程師將親臨現場評估，確保每一分投資都發揮最大效益。
-              </p>
-
-              <ul className="mb-8 space-y-4">
-                <li className="flex items-center gap-3 text-slate-700">
-                  <span className="material-symbols-outlined text-primary">
-                    check_circle
-                  </span>
-                  <span>客製化排水系統設計</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-700">
-                  <span className="material-symbols-outlined text-primary">
-                    check_circle
-                  </span>
-                  <span>節能減碳效能評估</span>
-                </li>
-                <li className="flex items-center gap-3 text-slate-700">
-                  <span className="material-symbols-outlined text-primary">
-                    check_circle
-                  </span>
-                  <span>定期維護保養計畫</span>
-                </li>
-              </ul>
-
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   )
 }
