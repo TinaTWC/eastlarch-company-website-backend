@@ -1,6 +1,16 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { fetchProducts } from '../api/products.js'
 
 export default function Home() {
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    fetchProducts()
+      .then(setProducts)
+      .catch(() => {})
+  }, [])
+
   return (
     <>
       <section className="relative overflow-hidden bg-hero-bg py-20 lg:py-32">
@@ -32,6 +42,80 @@ export default function Home() {
                 查看商品
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+              熱門產品
+            </h2>
+            <p className="mt-3 text-lg text-slate-500">點選產品了解詳細規格與應用情境</p>
+          </div>
+
+          {products.length > 0 ? (
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {products.map((p) => (
+                <article
+                  key={p.id}
+                  className="group flex flex-col overflow-hidden rounded-xl border border-emerald-100 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-100/50"
+                >
+                  <Link
+                    to={`/products/${p.id}`}
+                    className="relative block w-full overflow-hidden bg-slate-50 pt-[75%]"
+                  >
+                    <img
+                      alt={p.name}
+                      src={p.image_url}
+                      className="absolute left-0 top-0 size-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </Link>
+                  <div className="flex flex-1 flex-col p-5">
+                    {p.category && (
+                      <span className="mb-1 text-xs font-medium text-primary">{p.category}</span>
+                    )}
+                    <Link
+                      to={`/products/${p.id}`}
+                      className="mb-2 text-lg font-bold text-slate-900 transition-colors hover:text-primary"
+                    >
+                      {p.name}
+                    </Link>
+                    <p className="mb-5 flex-1 text-sm leading-relaxed text-slate-500 line-clamp-2">
+                      {p.description}
+                    </p>
+                    <div className="flex items-center gap-3">
+                      <Link
+                        to={`/products/${p.id}`}
+                        className="inline-flex items-center gap-1 text-sm font-medium text-slate-600 transition-colors hover:text-primary"
+                      >
+                        商品簡介
+                        <span className="material-symbols-outlined text-base">arrow_forward</span>
+                      </Link>
+                      <Link
+                        to="/quote"
+                        className="ml-auto inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-primary-hover"
+                      >
+                        詢價
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="py-10 text-center text-slate-400">載入中...</div>
+          )}
+
+          <div className="mt-10 text-center">
+            <Link
+              to="/products"
+              className="inline-flex items-center gap-2 rounded-lg border border-primary px-6 py-2.5 text-sm font-bold text-primary transition-colors hover:bg-primary hover:text-white"
+            >
+              查看全部產品
+              <span className="material-symbols-outlined text-base">arrow_forward</span>
+            </Link>
           </div>
         </div>
       </section>
