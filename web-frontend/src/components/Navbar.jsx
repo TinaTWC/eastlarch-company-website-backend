@@ -1,5 +1,4 @@
 import { Link, NavLink } from 'react-router-dom'
-import VentSysLogo from './VentSysLogo.jsx'
 
 const navLinkClass = ({ isActive }) =>
   [
@@ -16,7 +15,7 @@ export default function Navbar() {
         to="/"
         className="flex items-center gap-4 text-slate-900 transition-opacity hover:opacity-80"
       >
-        <VentSysLogo />
+        <img src="/images/logo.png" alt="落葉松 logo" className="h-10 w-auto object-contain" />
         <h2 className="text-lg font-bold leading-tight tracking-[-0.015em]">
           落葉松股份有限公司
         </h2>
