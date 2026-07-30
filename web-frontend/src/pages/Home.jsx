@@ -1,6 +1,121 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchProducts } from '../api/products.js'
+
+// 專利證書圖片，請放到 web-frontend/public/images/patent-m683135.jpg
+const PATENT_IMAGE = '/images/patent-m683135.jpg'
+const SLIDE_COUNT = 2
+
+function HeroCarousel() {
+  const trackRef = useRef(null)
+  const [activeSlide, setActiveSlide] = useState(0)
+  const [patentImageOk, setPatentImageOk] = useState(true)
+
+  const goToSlide = (index) => {
+    const track = trackRef.current
+    if (!track) return
+    const target = (index + SLIDE_COUNT) % SLIDE_COUNT
+    track.scrollTo({ left: track.clientWidth * target, behavior: 'smooth' })
+  }
+
+  const handleScroll = () => {
+    const track = trackRef.current
+    if (!track) return
+    setActiveSlide(Math.round(track.scrollLeft / track.clientWidth))
+  }
+
+  return (
+    <section className="relative overflow-hidden bg-hero-bg">
+      <div
+        className="absolute inset-0 z-0 opacity-20"
+        data-alt="Abstract geometric dot pattern on light green background"
+        style={{
+          backgroundImage: 'radial-gradient(#2D6A4F 1px, transparent 1px)',
+          backgroundSize: '32px 32px',
+        }}
+      />
+
+      <div className="relative z-10">
+        <div
+          ref={trackRef}
+          onScroll={handleScroll}
+          tabIndex={0}
+          aria-label="首頁輪播"
+          className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          <div className="flex w-full shrink-0 snap-center items-center justify-center px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
+            <div className="mx-auto max-w-3xl text-center">
+              <h1 className="mb-4 text-3xl font-black leading-tight tracking-tight text-secondary sm:text-4xl lg:text-5xl">
+                穩定排水，守護製程：
+                <br className="hidden sm:block" />
+                電動與無動力雙效專家
+              </h1>
+              <p className="mx-auto max-w-2xl text-base font-medium leading-relaxed text-slate-600">
+                提供最高標準的工業排水解決方案，結合電動與無動力技術，優化您的生產環境，打造高效、安全的作業空間。
+              </p>
+            </div>
+          </div>
+
+          <div className="flex w-full shrink-0 snap-center items-center justify-center px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
+            <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
+              {patentImageOk ? (
+                <img
+                  src={PATENT_IMAGE}
+                  alt="全透明無耗氣電子式排水器 中華民國專利證書 M683135"
+                  onError={() => setPatentImageOk(false)}
+                  className="max-h-64 w-auto rounded-lg border border-emerald-100 bg-white object-contain shadow-sm sm:max-h-80 lg:max-h-96"
+                />
+              ) : (
+                <div className="flex h-64 w-48 flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-emerald-300 bg-white/60 text-emerald-600 sm:h-80 sm:w-60">
+                  <span className="material-symbols-outlined text-4xl">image</span>
+                  <span className="text-sm font-medium">專利證書圖片</span>
+                </div>
+              )}
+              <h2 className="text-2xl font-black leading-snug tracking-tight text-secondary sm:text-3xl lg:text-4xl">
+                全透明無耗氣電子式排水器
+                <br />
+                中華民國專利字號證書字號:M683135
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => goToSlide(activeSlide - 1)}
+          aria-label="上一張"
+          className="absolute left-2 top-1/2 hidden size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-secondary shadow-sm transition-colors hover:bg-white sm:flex lg:left-6"
+        >
+          <span className="material-symbols-outlined">chevron_left</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => goToSlide(activeSlide + 1)}
+          aria-label="下一張"
+          className="absolute right-2 top-1/2 hidden size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-secondary shadow-sm transition-colors hover:bg-white sm:flex lg:right-6"
+        >
+          <span className="material-symbols-outlined">chevron_right</span>
+        </button>
+
+        <div className="flex items-center justify-center gap-2 pb-6">
+          {Array.from({ length: SLIDE_COUNT }, (_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => goToSlide(i)}
+              aria-label={`第 ${i + 1} 張`}
+              aria-current={activeSlide === i ? 'true' : undefined}
+              className={[
+                'h-2 rounded-full transition-all',
+                activeSlide === i ? 'w-6 bg-primary' : 'w-2 bg-emerald-200 hover:bg-emerald-300',
+              ].join(' ')}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
 
 export default function Home() {
   const [products, setProducts] = useState([])
@@ -13,29 +128,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-hero-bg py-10 lg:py-16">
-        <div
-          className="absolute inset-0 z-0 opacity-20"
-          data-alt="Abstract geometric dot pattern on light green background"
-          style={{
-            backgroundImage: 'radial-gradient(#2D6A4F 1px, transparent 1px)',
-            backgroundSize: '32px 32px',
-          }}
-        />
-
-        <div className="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl">
-            <h1 className="mb-4 text-3xl font-black leading-tight tracking-tight text-secondary sm:text-4xl lg:text-5xl">
-              穩定排水，守護製程：
-              <br className="hidden sm:block" />
-              電動與無動力雙效專家
-            </h1>
-            <p className="mx-auto max-w-2xl text-base font-medium leading-relaxed text-slate-600">
-              提供最高標準的工業排水解決方案，結合電動與無動力技術，優化您的生產環境，打造高效、安全的作業空間。
-            </p>
-          </div>
-        </div>
-      </section>
+      <HeroCarousel />
 
       <section className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-1">
             <div className="mb-4 flex items-center gap-2 text-white">
               <VentSysLogo className="size-6 text-[#2bee2b]" />
-              <span className="text-lg font-bold">落葉松股份有限公司</span>
+              <span className="text-lg font-bold">落葉松有限公司</span>
             </div>
             <p className="text-sm leading-relaxed text-slate-400">
               全球領先的工業排水解決方案供應商。
@@ -86,7 +86,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="flex flex-col items-center justify-between gap-4 border-t border-slate-800 pt-8 text-xs text-slate-500 md:flex-row">
-          <p>© 2026 落葉松股份有限公司. 版權所有.</p>
+          <p>© 2026 落葉松有限公司. 版權所有.</p>
           <div className="flex gap-4">
           </div>
         </div>

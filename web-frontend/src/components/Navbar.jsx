@@ -17,7 +17,7 @@ export default function Navbar() {
       >
         <img src="/images/logo.png" alt="落葉松 logo" className="h-10 w-auto object-contain" />
         <h2 className="text-lg font-bold leading-tight tracking-[-0.015em]">
-          落葉松股份有限公司
+          落葉松有限公司
         </h2>
       </Link>
       <div className="flex items-center gap-9">
