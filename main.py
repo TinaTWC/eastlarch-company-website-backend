@@ -39,9 +39,9 @@ app.add_middleware(
 MOCK_PRODUCTS = [
     {
         "id": 1,
-        "name": "FE110-FE220全透明無耗氣電子式排水器",
-        "model": "FE110-FE220",
-        "description": "採用全透明桶身設計，可即時目視積水狀態，結合電子感應控制自動排水，達到節能省電、免人工巡視的智能管理效果。適用於壓縮空氣系統、冷凍乾燥機、精密過濾器等工業設備。",
+        "name": "FE系列-全透明無耗氣電子式排水器",
+        "model": "FE系列",
+        "description": "採用全透明桶身設計，可即時目視積水狀態，結合電子感應控制自動排水，達到節能省電、降低人工巡視的誤判的智能管理效果。適用於壓縮空氣系統、冷凍乾燥機、精密過濾器等工業設備。",
         "image_url": "/images/fe220-angle.jpg",
         "images": [
             "/images/fe220-angle.jpg",
@@ -49,7 +49,7 @@ MOCK_PRODUCTS = [
             "/images/fe220-top.jpg",
             "/images/fe220-label.png",
         ],
-        "category": "電動排水",
+        "category": "無耗氣電子式排水器",
         "specs": {
             "型號": "FE110-FE220",
             "專利字號": "中華民國專利證書字號 M683135",
@@ -78,16 +78,16 @@ MOCK_PRODUCTS = [
     },
     {
         "id": 2,
-        "name": "BFE110-BFE220 全透明無耗氣電子式排水器",
-        "model": "BFE110 / BFE220",
-        "description": "採用全透明桶身設計，可即時目視積水狀態，結合電子感應控制自動排水，排水完畢立即關閉、不隨水排掉壓縮空氣，達到節能省電、免人工巡視的智能管理效果。水平圓筒式機身安裝空間需求小，SUS304 不鏽鋼濾芯耐腐蝕、免耗材更換。",
+        "name": "BFE系列-全透明無耗氣電子式排水器",
+        "model": "BFE系列",
+        "description": "採用全透明桶身設計，可即時目視排水狀態，結合電子感應控制自動排水，排水完畢立即關閉、不隨水排掉珍貴的壓縮空氣，能省電、降低人工巡視的誤判的智能管理效果。水平圓筒式機身安裝空間需求小，SUS304 不鏽鋼濾芯耐腐蝕、免耗材更換。",
         "image_url": "/images/fe-drain-angle.jpg",
         "images": [
             "/images/fe-drain-angle.jpg",
             "/images/fe-drain-front.jpg",
             "/images/fe-drain-side.jpg",
         ],
-        "category": "電動排水",
+        "category": "大排量無耗氣電子式排水器",
         "specs": {
             "型號": "BFE110 / BFE220",
             "驅動方式": "電子液位感應式（自動偵測排水）",
@@ -124,7 +124,7 @@ MOCK_PRODUCTS = [
             "/images/ndfa827-vertical.jpg",
             "/images/ndfa827-side.jpg",
         ],
-        "category": "無耗能機械式排水",
+        "category": "無耗氣機械式排水器",
         "specs": {
             "型號": "NDFA-827",
             "驅動方式": "氣壓缸機械式驅動（無需外部電源）",

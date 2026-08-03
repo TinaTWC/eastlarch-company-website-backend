@@ -63,7 +63,7 @@ export default function Products() {
             專業產品
           </h1>
           <p className="mx-auto max-w-xl text-lg text-[#618961]">
-            提供電動式與無動力兩種排水解決方案，為您的廠房打造完善的排水環境。
+          提供電動式與無耗氣氣動力式兩種排水解決方案，為您的廠房打造完善、潔淨、安全的排水環境。
           </p>
         </div>
       </section>
