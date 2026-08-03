@@ -1,6 +1,35 @@
 import { useState } from 'react'
 import { submitQuote } from '../api/quote.js'
 
+// 詢價項目：field 為表單欄位名，label 會原字串送進詢價信件
+const QUOTE_PRODUCTS = [
+  {
+    field: 'product_fe110',
+    label: 'FE110 -電壓 :110V-全透明排水器',
+    desc: '全透明桶身，電子感應自動排水，節能省電。',
+  },
+  {
+    field: 'product_fe220',
+    label: 'FE220 -電壓 :220V-全透明排水器',
+    desc: '全透明桶身，電子感應自動排水，節能省電。',
+  },
+  {
+    field: 'product_bfe110',
+    label: 'BFE110 -電壓 :110V-全透明排水器',
+    desc: '氣壓浮球驅動，零耗電，全透明桶身。',
+  },
+  {
+    field: 'product_bfe220',
+    label: 'BFE220 -電壓 :220V-全透明排水器',
+    desc: '氣壓浮球驅動，零耗電，全透明桶身。',
+  },
+  {
+    field: 'product_ndfa827',
+    label: 'NDFA-827 無耗能機械式自動排水器',
+    desc: '氣壓缸機械驅動，不鏽鋼球閥，適合高壓大流量場合。',
+  },
+]
+
 export default function Quote() {
   const [status, setStatus] = useState(null) // 'success' | 'error' | null
   const [errorMessage, setErrorMessage] = useState('')
@@ -10,9 +39,9 @@ export default function Quote() {
     e.preventDefault()
     const form = e.target
 
-    const products = []
-    if (form.product_electric?.checked) products.push('電動排水器')
-    if (form.product_gravity?.checked) products.push('無動力排水器')
+    const products = QUOTE_PRODUCTS.filter((p) => form[p.field]?.checked).map(
+      (p) => p.label,
+    )
 
     const data = {
       products,
@@ -67,51 +96,24 @@ export default function Quote() {
               詢價項目
             </h3>
             <div className="space-y-4">
-              <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-100 bg-slate-50 p-4 transition-colors hover:border-[#2bee2b]">
-                <input
-                  name="product_electric"
-                  className="mt-1 size-5 rounded border-slate-300 bg-white accent-[#2bee2b] focus:ring-[#2bee2b]"
-                  type="checkbox"
-                />
-                <div className="flex-1">
-                  <span className="block text-sm font-bold text-slate-900">
-                    FE110 -FE220全透明排水器
-                  </span>
-                  <span className="text-xs text-slate-500">
-                    全透明桶身，電子感應自動排水，節能省電。
-                  </span>
-                </div>
-              </label>
-              <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-100 bg-slate-50 p-4 transition-colors hover:border-[#2bee2b]">
-                <input
-                  name="product_gravity"
-                  className="mt-1 size-5 rounded border-slate-300 bg-white accent-[#2bee2b] focus:ring-[#2bee2b]"
-                  type="checkbox"
-                />
-                <div className="flex-1">
-                  <span className="block text-sm font-bold text-slate-900">
-                    FE110 -FE220 無耗能自動排水器
-                  </span>
-                  <span className="text-xs text-slate-500">
-                    氣壓浮球驅動，零耗電，全透明桶身。
-                  </span>
-                </div>
-              </label>
-              <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-100 bg-slate-50 p-4 transition-colors hover:border-[#2bee2b]">
-                <input
-                  name="product_ndfa827"
-                  className="mt-1 size-5 rounded border-slate-300 bg-white accent-[#2bee2b] focus:ring-[#2bee2b]"
-                  type="checkbox"
-                />
-                <div className="flex-1">
-                  <span className="block text-sm font-bold text-slate-900">
-                    NDFA-827 無耗能機械式自動排水器
-                  </span>
-                  <span className="text-xs text-slate-500">
-                    氣壓缸機械驅動，不鏽鋼球閥，適合高壓大流量場合。
-                  </span>
-                </div>
-              </label>
+              {QUOTE_PRODUCTS.map((p) => (
+                <label
+                  key={p.field}
+                  className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-100 bg-slate-50 p-4 transition-colors hover:border-[#2bee2b]"
+                >
+                  <input
+                    name={p.field}
+                    className="mt-1 size-5 rounded border-slate-300 bg-white accent-[#2bee2b] focus:ring-[#2bee2b]"
+                    type="checkbox"
+                  />
+                  <div className="flex-1">
+                    <span className="block text-sm font-bold text-slate-900">
+                      {p.label}
+                    </span>
+                    <span className="text-xs text-slate-500">{p.desc}</span>
+                  </div>
+                </label>
+              ))}
             </div>
           </div>
 
