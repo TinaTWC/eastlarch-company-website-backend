@@ -80,7 +80,7 @@ export default function Contact() {
                       公司地址
                     </h4>
                     <p className="mt-1 text-slate-600">
-                      桃園市中壢區同慶路98號
+                      桃園市中壢區仁美里仁慈路176號2樓
                     </p>
                   </div>
                 </div>

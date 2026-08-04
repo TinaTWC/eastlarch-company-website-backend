@@ -51,7 +51,7 @@ function HeroCarousel() {
                 電動與無動力雙效專家
               </h1>
               <p className="mx-auto max-w-2xl text-base font-medium leading-relaxed text-slate-600">
-                提供最高標準的工業排水解決方案，結合電動與無動力技術，優化您的生產環境，打造高效、安全的作業空間。
+              提供電動式與無耗氣氣動力式兩種排水解決方案，為您的廠房打造完善、潔淨、安全的排水環境。
               </p>
             </div>
           </div>

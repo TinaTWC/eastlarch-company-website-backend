@@ -80,7 +80,7 @@ export default function Footer() {
                 <span className="material-symbols-outlined text-sm">
                   location_on
                 </span>
-                桃園市中壢區同慶路98號
+                桃園市中壢區仁美里仁慈路176號2樓
               </li>
             </ul>
           </div>
