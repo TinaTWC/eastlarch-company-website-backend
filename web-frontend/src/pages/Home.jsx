@@ -204,6 +204,29 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="bg-white pb-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col items-start gap-6 rounded-2xl border border-emerald-100 bg-emerald-50/60 p-8 md:flex-row md:items-center md:justify-between md:p-10">
+            <div className="max-w-2xl">
+              <h2 className="mb-3 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                定時排水器每排一次水，就順手排掉一份電費
+              </h2>
+              <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
+                積水排完後閥還開著的那幾秒，排掉的是你花電費製造的壓縮空氣。
+                輸入貴廠的運轉條件，即時算出換成無耗氣排水器後每年能省下多少電費與碳排。
+              </p>
+            </div>
+            <Link
+              to="/savings"
+              className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-bold text-white shadow-sm transition-opacity hover:opacity-90"
+            >
+              <span className="material-symbols-outlined text-base">calculate</span>
+              立即試算節能效益
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-background-light py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">

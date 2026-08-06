@@ -130,13 +130,22 @@ export default function ProductDetail() {
                 </div>
               )}
 
-              <Link
-                to="/quote"
-                className="mt-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#2bee2b] px-6 py-3.5 text-sm font-bold text-[#111811] transition-colors hover:bg-[#22bd22] shadow-sm"
-              >
-                立即詢價
-                <span className="material-symbols-outlined text-base">arrow_forward</span>
-              </Link>
+              <div className="mt-auto flex flex-col gap-3">
+                <Link
+                  to="/quote"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#2bee2b] px-6 py-3.5 text-sm font-bold text-[#111811] transition-colors hover:bg-[#22bd22] shadow-sm"
+                >
+                  立即詢價
+                  <span className="material-symbols-outlined text-base">arrow_forward</span>
+                </Link>
+                <Link
+                  to="/savings"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#e0e8e0] bg-white px-6 py-3.5 text-sm font-bold text-slate-600 transition-colors hover:border-[#2bee2b] hover:text-[#2a792a]"
+                >
+                  <span className="material-symbols-outlined text-base">calculate</span>
+                  試算能省多少電費
+                </Link>
+              </div>
             </div>
           </div>
 

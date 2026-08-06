@@ -6,6 +6,7 @@ import Products from './pages/Products.jsx'
 import ProductDetail from './pages/ProductDetail.jsx'
 import Contact from './pages/Contact.jsx'
 import Quote from './pages/Quote.jsx'
+import Savings from './pages/Savings.jsx'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/savings" element={<Savings />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/quote" element={<Quote />} />
         <Route path="*" element={<Navigate to="/" replace />} />

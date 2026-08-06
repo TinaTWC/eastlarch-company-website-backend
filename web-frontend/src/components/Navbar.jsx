@@ -25,6 +25,9 @@ export default function Navbar() {
           <NavLink to="/products" className={navLinkClass}>
             產品
           </NavLink>
+          <NavLink to="/savings" className={navLinkClass}>
+            節能效益
+          </NavLink>
           <NavLink to="/about" className={navLinkClass}>
             關於我們
           </NavLink>
