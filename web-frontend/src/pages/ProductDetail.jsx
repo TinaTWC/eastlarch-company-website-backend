@@ -37,6 +37,10 @@ export default function ProductDetail() {
   const specs = product.specs || {}
   const features = product.features || []
   const applications = product.applications || []
+  // 同系列多型號時以並列比較表呈現；已列在比較表的項目不再重複於共同規格
+  const specVariants = product.spec_variants || null
+  const variantLabels = new Set(specVariants?.rows?.map((r) => r.label) || [])
+  const commonSpecs = Object.entries(specs).filter(([k]) => !variantLabels.has(k))
 
   return (
     <div className="flex flex-1 flex-col bg-[#f6f8f6] text-[#111811]">
@@ -163,23 +167,70 @@ export default function ProductDetail() {
           <div className="mx-6 border-t border-[#f0f4f0] md:mx-10" />
 
           {/* Specifications table */}
-          {Object.keys(specs).length > 0 && (
+          {(specVariants || commonSpecs.length > 0) && (
             <div className="px-6 py-8 md:px-10">
               <h2 className="mb-6 text-lg font-bold text-[#111811]">技術規格</h2>
-              <div className="overflow-hidden rounded-xl border border-[#e8ede8]">
-                <table className="w-full text-sm">
-                  <tbody>
-                    {Object.entries(specs).map(([k, v], i) => (
-                      <tr key={k} className={i % 2 === 0 ? 'bg-white' : 'bg-[#f9fbf9]'}>
-                        <td className="w-[40%] px-5 py-3.5 font-semibold text-slate-500 text-xs border-r border-[#f0f4f0]">
-                          {k}
-                        </td>
-                        <td className="px-5 py-3.5 text-[#111811] font-medium">{v}</td>
+
+              {specVariants && (
+                <div className="mb-8 overflow-x-auto rounded-xl border border-[#e8ede8]">
+                  <table className="w-full min-w-[560px] text-sm">
+                    <thead>
+                      <tr className="bg-[#f0f4f0]">
+                        <th className="w-[22%] border-r border-[#e8ede8] px-5 py-3" />
+                        {specVariants.columns.map((col) => (
+                          <th
+                            key={col}
+                            className="border-r border-[#e8ede8] px-5 py-3 text-left text-xs font-bold tracking-widest text-[#111811] last:border-r-0"
+                          >
+                            {col}
+                          </th>
+                        ))}
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody>
+                      {specVariants.rows.map((row, i) => (
+                        <tr key={row.label} className={i % 2 === 0 ? 'bg-white' : 'bg-[#f9fbf9]'}>
+                          <td className="border-r border-[#f0f4f0] px-5 py-3.5 text-xs font-semibold text-slate-500">
+                            {row.label}
+                          </td>
+                          {row.values.map((v, j) => (
+                            <td
+                              key={`${row.label}-${j}`}
+                              className="border-r border-[#f0f4f0] px-5 py-3.5 font-medium text-[#111811] last:border-r-0"
+                            >
+                              {v}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
+              {commonSpecs.length > 0 && (
+                <>
+                  {specVariants && (
+                    <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-slate-400">
+                      共同規格
+                    </p>
+                  )}
+                  <div className="overflow-hidden rounded-xl border border-[#e8ede8]">
+                    <table className="w-full text-sm">
+                      <tbody>
+                        {commonSpecs.map(([k, v], i) => (
+                          <tr key={k} className={i % 2 === 0 ? 'bg-white' : 'bg-[#f9fbf9]'}>
+                            <td className="w-[40%] px-5 py-3.5 font-semibold text-slate-500 text-xs border-r border-[#f0f4f0]">
+                              {k}
+                            </td>
+                            <td className="px-5 py-3.5 text-[#111811] font-medium">{v}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </>
+              )}
             </div>
           )}
 
